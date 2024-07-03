@@ -2,7 +2,6 @@ package com.cydeo.controller;
 
 import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.dto.TaskDTO;
-import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Status;
 import com.cydeo.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -60,13 +59,13 @@ public class TaskController {
     @PutMapping("/employee/update")
     public ResponseEntity<ResponseWrapper> employeeUpdateTasks(@RequestBody TaskDTO task){
         taskService.update(task);
-        return ResponseEntity.ok(new ResponseWrapper("Task is succesfully updated", HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Task is successfully updated", HttpStatus.OK));
     }
 
 
     @GetMapping("/employee/archive")
     public ResponseEntity<ResponseWrapper> employeeArchivedTasks(){
-        return ResponseEntity.ok(new ResponseWrapper("Retrived archived tasks",taskService.listAllTasksByStatus(Status.COMPLETE),HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Retrieved archived tasks",taskService.listAllTasksByStatus(Status.COMPLETE),HttpStatus.OK));
     }
 
 
