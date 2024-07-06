@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    @RolesAllowed({"Manager,Admin"})
+    @RolesAllowed({"Manager","Admin"})
     public ResponseEntity<ResponseWrapper> getUsers() {
 
         List<UserDTO> userDTOList = userService.listAllUsers();
