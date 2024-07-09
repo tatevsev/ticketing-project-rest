@@ -36,7 +36,6 @@ public class UserController {
 
     @PostMapping
     @RolesAllowed("Admin")
-
     public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user){
         userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is successfully created",HttpStatus.CREATED));
