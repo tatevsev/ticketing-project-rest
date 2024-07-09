@@ -37,7 +37,6 @@ public class KeycloakServiceImpl implements KeycloakService {
         credential.setType(CredentialRepresentation.PASSWORD);
         credential.setTemporary(false);
         credential.setValue(userDTO.getPassWord());
-
         UserRepresentation keycloakUser = new UserRepresentation();
         keycloakUser.setUsername(userDTO.getUserName());
         keycloakUser.setFirstName(userDTO.getFirstName());

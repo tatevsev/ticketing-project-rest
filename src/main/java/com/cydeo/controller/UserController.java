@@ -19,48 +19,87 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+
+    @GetMapping
     @RolesAllowed({"Manager","Admin"})
-    public ResponseEntity<ResponseWrapper> getUsers() {
-
+    public ResponseEntity<ResponseWrapper> getUsers(){
         List<UserDTO> userDTOList = userService.listAllUsers();
-
-        return
-                ResponseEntity.ok(new ResponseWrapper("Users are successfully retrieved", userDTOList, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Users are successfully retrieves",userDTOList, HttpStatus.OK));
     }
-
 
     @GetMapping("/{username}")
     @RolesAllowed("Admin")
-    public ResponseEntity<ResponseWrapper> getUserByUsername(@PathVariable("username") String username) {
-
-        return
-                ResponseEntity.ok(new ResponseWrapper("User with name " + username + " is retrieved", userService.findByUserName(username), HttpStatus.OK));
+    public ResponseEntity<ResponseWrapper> getUserByUserName(@PathVariable("username") String userName){
+        UserDTO user = userService.findByUserName(userName);
+        return ResponseEntity.ok(new ResponseWrapper("User is successfully retrieved",user, HttpStatus.OK));
     }
 
     @PostMapping
     @RolesAllowed("Admin")
-    public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user) {
 
+    public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user){
         userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is succesfully created", HttpStatus.CREATED));
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is successfully created",HttpStatus.CREATED));
     }
 
-    @PutMapping("/{username}")
+    @PutMapping
     @RolesAllowed("Admin")
-    public ResponseEntity<ResponseWrapper> updateUser(@PathVariable("username") String username, @RequestBody UserDTO user) {
-
+    public ResponseEntity<ResponseWrapper> updateUser(@RequestBody UserDTO user){
         userService.update(user);
-        return ResponseEntity.ok(new ResponseWrapper("User with name " + user.getUserName() + " is updated", HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("User is successfully updated",HttpStatus.OK));
+
     }
 
     @DeleteMapping("/{username}")
     @RolesAllowed("Admin")
-    public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable("username") String username) {
+    public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable("username") String userName){
+        userService.delete(userName);
+        return ResponseEntity.ok(new ResponseWrapper("User is successfully deleted",HttpStatus.OK));
 
-
-        return ResponseEntity.ok((new ResponseWrapper("User with name " + username + " is deleted", HttpStatus.OK)));
     }
-
+//
+//    @GetMapping("/users")
+//    @RolesAllowed({"Manager","Admin"})
+//    public ResponseEntity<ResponseWrapper> getUsers() {
+//
+//        List<UserDTO> userDTOList = userService.listAllUsers();
+//
+//        return
+//                ResponseEntity.ok(new ResponseWrapper("Users are successfully retrieved", userDTOList, HttpStatus.OK));
+//    }
+//
+//
+//    @GetMapping("/{username}")
+//    @RolesAllowed("Admin")
+//    public ResponseEntity<ResponseWrapper> getUserByUsername(@PathVariable("username") String username) {
+//
+//        return
+//                ResponseEntity.ok(new ResponseWrapper("User with name " + username + " is retrieved", userService.findByUserName(username), HttpStatus.OK));
+//    }
+//
+//    @PostMapping
+//    @RolesAllowed("Admin")
+//    public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user) {
+//
+//        userService.save(user);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is succesfully created", HttpStatus.CREATED));
+//
+//    }
+//
+//    @PutMapping("/{username}")
+//    @RolesAllowed("Admin")
+//    public ResponseEntity<ResponseWrapper> updateUser(@PathVariable("username") String username, @RequestBody UserDTO user) {
+//
+//        userService.update(user);
+//        return ResponseEntity.ok(new ResponseWrapper("User with name " + user.getUserName() + " is updated", HttpStatus.OK));
+//    }
+//
+//    @DeleteMapping("/{username}")
+//    @RolesAllowed("Admin")
+//    public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable("username") String username) {
+//
+//
+//        return ResponseEntity.ok((new ResponseWrapper("User with name " + username + " is deleted", HttpStatus.OK)));
+//    }
+//
 }
