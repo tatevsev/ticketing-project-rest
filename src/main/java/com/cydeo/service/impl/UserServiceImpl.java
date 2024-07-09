@@ -53,9 +53,8 @@ public class UserServiceImpl implements UserService {
 
         User obj = userMapper.convertToEntity(user);
 
-        userRepository.save(obj);
-
         keycloakService.userCreate(user);
+        userRepository.save(obj);
 
     }
 
